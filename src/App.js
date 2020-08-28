@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MapViewer from './components/MapViewer'
+import Viewer from './components/Viewer'
 
 const App = () => {
   return (
     <div>
-      <MapViewer />
+      <Viewer />
     </div>
   );
 }
