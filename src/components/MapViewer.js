@@ -1,8 +1,8 @@
-import React from 'react';
-
+import React, {useState, useEffect} from 'react';
 import DeckGL from '@deck.gl/react';
 import {StaticMap} from 'react-map-gl';
-import {PointCloudLayer} from '@deck.gl/layers';
+import {PointCloudLayer} from '@deck.gl/layers'
+import {_initMapData} from '../loader'
 
 const INITIAL_VIEW_STATE = {
     longitude: -66,
@@ -17,25 +17,32 @@ const INITIAL_VIEW_STATE = {
 const MAPBOX_ACCESS_TOKEN = "pk.eyJ1IjoiZW1jMTUiLCJhIjoiY2s5Y2N4anYxMDM1bzNsczQyM2JmZ2NrdSJ9.50AmDUblg0xKcPxRfUxPGg"
 
 const MapViewer = (props) => {
+  const [data, setData] = useState([]);
 
-    console.log(props.data)
-    const layer = new PointCloudLayer({
-        data: props.data,
-        getPosition: (d) => d.latLong,
-        id: 'point-cloud-layer',
-        pickable: false,
-        pointSize: 5,
-      });
+  const layer = [new PointCloudLayer({
+      data: data,
+      getPosition: (d) => d.latLong,
+      id: 'point-cloud-layer',
+      pickable: false,
+      pointSize: 5,
+    })]
+
+  useEffect(() => {
+    setData(_initMapData);
+  }, [])
     
-    return ( 
-        <DeckGL
+  return ( 
+      <div style={{height: "500px"}}>
+          <DeckGL
           initialViewState={INITIAL_VIEW_STATE}
           controller={true}
           layers={[layer]} 
-        >
-        <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
-        </DeckGL>
-    )
-}
+          style={{position: "relative"}}
+          >
+            <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
+          </DeckGL>
+      </div>
+  )
 
+}
 export default MapViewer;

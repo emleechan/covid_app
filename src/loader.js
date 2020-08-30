@@ -1,4 +1,4 @@
-export const _initData = async() => {
+export const _initMapData = async() => {
     const URL = 'https://api.covid19api.com/dayone/country/Canada'
     const req = await fetch(URL);
     const data = await req.json();
