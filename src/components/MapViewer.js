@@ -33,6 +33,7 @@ const MapViewer = (props) => {
     
   return ( 
       <div style={{height: "500px"}}>
+        {console.log(data)}
           <DeckGL
           initialViewState={INITIAL_VIEW_STATE}
           controller={true}
